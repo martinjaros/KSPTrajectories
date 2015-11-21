@@ -168,7 +168,16 @@ namespace Trajectories
                         {
                             cubes.SetDrag(sim_dragVectorDirLocal, (float)mach);
                             cubes.ForceUpdate(true, true);
-                            p_drag_data = cubes.AddSurfaceDragDirection(-sim_dragVectorDirLocal, (float)mach);
+
+                            try
+                            {
+                                p_drag_data = cubes.AddSurfaceDragDirection(-sim_dragVectorDirLocal, (float)mach);
+                            }
+                            catch
+                            {
+                            	continue; // FIXME fuel lines and structs in 1.0.5
+                            }
+
                             //Debug.Log(String.Format("Trajectories: Caught NRE on Drag Initialization.  Should be fixed now.  {0}", e));
                         }
 
